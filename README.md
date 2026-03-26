@@ -37,3 +37,29 @@ DGSUI/
 ├── main.py                 # Training and evaluation loop
 ├── requirements.txt        # Environment dependencies
 └── README.md
+
+
+
+⚙️ Installation & RequirementsThe code has been tested under Python 3.8+ and PyTorch 1.12+. To set up the environment, run:Bash# Clone the repository
+git clone [https://github.com/YourUsername/DGSUI-Recommendation.git](https://github.com/YourUsername/DGSUI-Recommendation.git)
+cd DGSUI-Recommendation
+
+# Create a virtual environment (Recommended)
+conda create -n dgsui_env python=3.9
+conda activate dgsui_env
+
+# Install dependencies
+pip install -r requirements.txt
+📊 DatasetsWe evaluate DGSUI on three large-scale, real-world datasets:Taobao: Industrial e-commerce interactions (filtered by 10-core).Amazon Electronics: Highly time-sensitive consumer electronics reviews (filtered by 5-core).Steam: Online gaming platform data featuring frequent intent shifts (filtered by 5-core).Preprocessing:To prevent temporal look-ahead bias, all datasets must be globally sorted by authentic timestamps. We adopt a strict leave-one-out evaluation protocol: the last item for testing, the penultimate for validation, and the rest for training. Place the downloaded raw datasets into the ./data/ directory and run the preprocessing script:Bashpython utils/data_loader.py --dataset taobao
+🏃‍♂️ Quick StartTo train and evaluate the DGSUI framework from scratch, use the main.py script. You can specify the dataset and key hyperparameters (e.g., aggregation layers $L$, margin scalar $\gamma$, sequence length $S$).Bash# Example: Running DGSUI on the Taobao dataset
+python main.py \
+    --dataset taobao \
+    --hidden_size 64 \
+    --num_layers 3 \
+    --seq_len 50 \
+    --alpha 0.5 \
+    --beta 0.05 \
+    --gamma 0.1 \
+    --gpu_id 0
+
+
